@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 import uuid
 
 def ask(query):
-
     query_with_contex = """
     Consider that the team is included in the column Labels;
     Don't use the column Assegnee to retrieve the team;
