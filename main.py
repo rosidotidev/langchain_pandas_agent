@@ -18,8 +18,6 @@ def getAgentExecutorChatOpenAI(df):
     )
     return agent
 
-
-
 def ask(query):
     query_with_contex = """
         Use the column Team to retrieve the team;
