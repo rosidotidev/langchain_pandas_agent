@@ -3,6 +3,9 @@ from langchain_openai import ChatOpenAI, OpenAI
 from langchain.agents.agent_types import AgentType
 import pandas as pd
 from dotenv import load_dotenv
+import streamlit as st
+from streamlit_chat import message
+import uuid
 def getAgentExecutorChatOpenAI(df):
     agent = create_pandas_dataframe_agent(
         ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613"),
@@ -55,8 +58,47 @@ def console_main():
     res = ask(query)
     print(res)
 
+def build_web_app():
+    st.header("LangChain🦜🔗 Jira facilitator example")
+    if (
+            "chat_answers_history" not in st.session_state
+            and "user_prompt_history" not in st.session_state
+            and "chat_history" not in st.session_state
+    ):
+        st.session_state["chat_answers_history"] = []
+        st.session_state["user_prompt_history"] = []
+        st.session_state["chat_history"] = []
+
+    prompt = st.text_input("Prompt", placeholder="Enter your message here...") or st.button(
+        "Submit"
+    )
+
+    if prompt:
+        with st.spinner("Generating response..."):
+            generated_response = ask(prompt)
+
+            st.session_state.chat_history.insert(0,(prompt, generated_response["output"]))
+            st.session_state.user_prompt_history.insert(0,prompt)
+            st.session_state.chat_answers_history.insert(0,generated_response['output'])
+
+    if st.session_state["chat_answers_history"]:
+        for generated_response, user_query in zip(
+                st.session_state["chat_answers_history"],
+                st.session_state["user_prompt_history"],
+        ):
+            message(
+                user_query,
+                is_user=True,
+                key=str(uuid.uuid4())
+            )
+            message(
+                generated_response,
+                is_user=False,
+                key=str(uuid.uuid4())
+            )
+
 if __name__ == '__main__':
     load_dotenv()
-    console_main()
-
+    #console_main()
+    build_web_app()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
