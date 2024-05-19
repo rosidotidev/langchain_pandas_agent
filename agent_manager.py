@@ -1,24 +1,21 @@
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from langchain_openai import ChatOpenAI, OpenAI
-from langchain.agents.agent_types import AgentType
-import pandas as pd
 
 QUERIES=[
-    "Quante ECOM del team Buffon con stato In Progress e quante di queste sono Technical",
-    "La somma degli story point nelle ECOM del team Buffon con stato Done nel terzo sprint",
-    "La somma degli story point nelle ECOM del team Buffon con stato Done nel terzo sprint",
-    "Quanti story point le ECOM in stato Done fino al 7 Febbraio del team Buffon con Reporter PO-Giulia",
-    "la lista dei team e quanti story point le loro ECOM in stato Done per i tre sprint",
+    "How many ECOM does the Buffon team have in \"in Progress\" status, and how many of them are Technical",
+    "The sum of story points of the ECOM of Buffon's team with status equals to Done in the third sprint",
     """
-    una tabella con: il nome del team, gli story point di tipo functional del team, gli story point di tipo technical del team, sprint
-    esempio:
-    Baggio   |Sprint 1| 34                   | 67
-    Zola     |Sprint 1| 22                   | 34 
+    How much story points have the ECOM of Buffon's team, in status Done, with Reporter equals to PO-Giulia 
+    before 7 February
+    """,
+    "Show the list of teams and how much story points in their ECOM with status equal to Done for the 3 sprints",
+    "Show the list of teams and how much story points in their ECOM with status equal to Done, in sprint 1"
+    """
+    How much story points has Materazzi Team in first Sprint, and how much of them are functional, and how much of them are in Done status 
     """,
     "How many ECOM of Zola team in status Done and in Sprint 2?",
-    "Somma degli story point del Team Zola nel terzo sprint in stato Done",
-    "Somma degli story point delle ECOM functional, del Team Zola, nel terzo sprint, in stato Done",
-    "gli url delle ECOM del team Baggio in terzo sprint    "
+    "The URL of all ECOM of the Zola's team in the first sprint having status not equals to Done",
+
 
     ]
 
@@ -28,6 +25,7 @@ def getAgentExecutorChatOpenAI(df):
            technical or functional refer to the column category;
            Consider that the single row can be called ECOM;
            Consider that state refers to column Status;
+           The URL of an ECOM is https://robby.com/{Issue Key}, where {Issue Key} is the value of the column "Issue Key"
           """
     agent = create_pandas_dataframe_agent(
         ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613"),
