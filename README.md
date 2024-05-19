@@ -31,6 +31,11 @@ To install langchain_pandas_agent, you need to have Python installed on your mac
 ```bash
 pipenv install pandas numpy python-dotenv langchain langchain-openai openai langchain-experimental tabulate streamlit streamlit-chat
 ```
+To run you need to execute
+
+```bash
+streamlit run main.py
+```
 
 ## Demonstration
 Below are some example queries and their results to demonstrate the capabilities of the langchain_pandas_agent:
