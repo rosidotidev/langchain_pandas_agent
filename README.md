@@ -37,8 +37,8 @@ pipenv install pandas numpy python-dotenv langchain langchain-openai openai lang
 Below are some example queries and their results to demonstrate the capabilities of the langchain_pandas_agent:
 
 #### Example 1: Show the list of teams and how much story points in their ECOM with status equal to Done for the 3 sprints
-![Example 1](file-qxLNMAigINaZzdrq2TJoeIIT)
+![Example 1](ECOM_table.png)
 
 #### Example 2: The URL of all ECOM of the Zola's team in the first sprint having status not equal to Done
-![Example 2](file-vPyAAonYR29OqmJcPw0ukQTo)
+![Example 2](ECOM_urls.png)
 
